@@ -1,8 +1,8 @@
 import { setupGameEngine } from "./game/game.js";
 
-const showBlockInfo = (block) => {
+const showBlockInfo = async (block) => {
     console.log("Block Info:", block);
-    setupGameEngine(block)
+    await setupGameEngine(block)
     loadContent('game')
 };
 
@@ -62,8 +62,8 @@ const showRooms = () => {
         roomBlock.appendChild(usersList);
 
         // Додайте обробник onClick для кожного блоку
-        roomBlock.onclick = () => {
-            showBlockInfo(room);
+        roomBlock.onclick = async () => {
+            await showBlockInfo(room);
         };
 
         roomsContainer.appendChild(roomBlock);
@@ -153,7 +153,7 @@ const createNewRoom = () => {
                 height: 5,
                 minPlanetProduction: 30,
                 maxPlanetProduction: 100,
-                speed: 0.03,
+                speed: 0.1,
                 distanceOffset: 0.3
             }
         };

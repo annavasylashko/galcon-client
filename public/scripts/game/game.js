@@ -1,13 +1,27 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import { GameManager } from "./gameManager.js"
 
-function setupGameEngine(room) {
-    const store = { room }
+async function setupGameEngine(room) {
+    const store = {}
 
+    store.room = await updateRoomInfo(room.id)
     store.gameManager = new GameManager(store.room)
     setupSocketCommunication(store)
-
     setupGameUI(store)
+}
+
+async function updateRoomInfo(roomId) {
+    const token = localStorage.getItem('token');
+
+    const url = `http://localhost:8000/api/rooms/${roomId}`;
+
+    const response = await axios.get(url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    return response.data
 }
 
 function setupGameUI(store) {
