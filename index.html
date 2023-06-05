@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Galcon</title>
+        <link href="styles/style.css" rel="stylesheet"/>
+        <link href="styles/profile.css" rel="stylesheet"/>
+        <link href="styles/rooms.css" rel="stylesheet"/>
+        <link href="styles/game.css" rel="stylesheet"/>
+        <link href="styles/settings.css" rel="stylesheet"/>
+        <link href="styles/auth.css" rel="stylesheet"/>
+        <link href="styles/navigation.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+        <script src="index.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="scripts/navigation.js"></script>
+    </head>
+    <body>
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="clouds"></div>
+
+        <div class="navigation">
+            <h1 id="rooms-tab">Rooms</h1>
+            <h1 id="game-tab">Game</h1>
+            <h1 id="profile-tab">Profile</h1>
+            <h1 id="settings-tab">Settings</h1>
+        </div>
+
+        <div id="content-container">
+            <div id="rooms-content" style="display: none;">
+                <h1>Rooms</h1>
+            </div>
+
+            <div id="game-content" style="display: none;">
+                <h1>Game</h1>
+            </div>
+
+            <div id="profile-content">
+                <h1>Profile</h1>
+            </div>
+
+            <div id="settings-content" style="display: none;">
+                <h1>Settings</h1>
+            </div>
+        </div>
+
+        <script src="scripts/navigation.js"></script>
+        <script src="scripts/rooms.js"></script>
+    </body>
+</html>
