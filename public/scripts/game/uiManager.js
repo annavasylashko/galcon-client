@@ -2,6 +2,8 @@ import { PIXI } from './pixi.min.js';
 
 class UIManager {
     #room
+    #currentUser
+
     #app
 
     #planetGraphics = new Map();
@@ -12,8 +14,9 @@ class UIManager {
 
     #scaling = 100
 
-    constructor(room) {
+    constructor(room, currentUser) {
         this.#room = room;
+        this.#currentUser = currentUser
 
         this.#app = new PIXI.Application({
             width: room.settings.width * this.#scaling,
@@ -135,7 +138,7 @@ class UIManager {
 
             // If the text object doesn't exist, create a new one
             if (!text) {
-                text = new PIXI.Text(planet.units, {
+                text = new PIXI.Text(Math.round(planet.units), {
                     fontFamily: "Space Mono",
                     fontSize: 0.25 * this.#scaling,
                     fill: '#000000',
@@ -145,7 +148,7 @@ class UIManager {
             }
 
             // Update the text properties
-            text.text = planet.units;
+            text.text = Math.round(planet.units);
             text.x = planet.x * this.#scaling;
             text.y = planet.y * this.#scaling;
         });
@@ -218,14 +221,19 @@ class UIManager {
     };
 
     #handlePlanetSelection = (planet) => {
-        if (!this.#selectedPlanet) {
-            this.#selectedPlanet = planet
+        if (this.#selectedPlanet) {
+            if (this.#selectedPlanet.id !== planet.id) {
+                this.handleBatchSend(this.#selectedPlanet.id, planet.id)
+            }
+
+            this.#selectedPlanet = null
 
             return
         }
 
-        this.handleBatchSend(this.#selectedPlanet.id, planet.id)
-        this.#selectedPlanet = null
+        if (planet.owner.username === this.#currentUser) {
+            this.#selectedPlanet = planet
+        }
     }
 }
 

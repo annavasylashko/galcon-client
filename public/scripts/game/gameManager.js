@@ -3,17 +3,19 @@ import { UIManager } from "./uiManager.js"
 
 class GameManager {
     #room = null
+    #currentUser = null
 
     #gameDataEngine = null
     #uiManager = null
 
     #colors = ['#FF8100', '#00E87D', '#005EFF', '#FFC900', '#FF00AA', '#00D9FF'];
 
-    constructor(room) {
+    constructor(room, currentUser) {
         this.#room = room
+        this.#currentUser = currentUser
 
         this.#setupDataEngine(room)
-        this.#setupUIManager(room)
+        this.#setupUIManager(room, currentUser)
 
         room.users.forEach(u => {
             this.handleRoomJoin(u, true)
@@ -52,10 +54,24 @@ class GameManager {
         user.color = this.#colors[users.length - 1]
 
         this.#log(`User: ${user.username} joined!`)
+
+        if (this.#currentUser === user.username) {
+            this.#log(`<p style="color: ${user.color}">THIS WILL BE YOUR COLOR!</p>`)
+        }
     }
 
     handleAssignPlanet = (planetId, userId) => {
         this.#gameDataEngine.assignPlanetToUser(planetId, userId)
+    }
+
+    handleBatchSend = (batch) => {
+        this.#gameDataEngine.sendBatch(
+            batch.id, 
+            batch.fromPlanetId, 
+            batch.toPlanetId,
+            batch.count,
+            batch.newFromPlanetUnits
+        )
     }
 
     #setupDataEngine = (room) => {
@@ -63,10 +79,12 @@ class GameManager {
         this.#gameDataEngine.logger = this.#log
     }
 
-    #setupUIManager = (room) => {
-        this.#uiManager = new UIManager(room)
+    #setupUIManager = (room, currentUser) => {
+        this.#uiManager = new UIManager(room, currentUser)
         this.#uiManager.handleBatchSend = (fromPlanetId, toPlanetId) => {
-            this.#gameDataEngine.sendBatch(fromPlanetId, toPlanetId)
+            const batch = this.#gameDataEngine.createBatch(fromPlanetId, toPlanetId)
+
+            this.batchHandler(batch)
         }
         this.#uiManager.startRenderLoop()
     }

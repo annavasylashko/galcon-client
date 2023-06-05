@@ -5,7 +5,12 @@ async function setupGameEngine(room) {
     const store = {}
 
     store.room = await updateRoomInfo(room.id)
-    store.gameManager = new GameManager(store.room)
+
+    console.log("Updated room info:", store.room)
+
+    store.username = localStorage.getItem('username')
+
+    setupGameManager(store)
     setupSocketCommunication(store)
     setupGameUI(store)
 }
@@ -24,6 +29,21 @@ async function updateRoomInfo(roomId) {
     return response.data
 }
 
+function setupGameManager(store) {
+    store.gameManager = new GameManager(store.room, store.username)
+
+    store.gameManager.batchHandler = (batch) => {
+        const data = {
+            fromPlanetId: batch.fromPlanet.id, 
+            toPlanetId: batch.toPlanet.id,
+            count: batch.count,
+            id: batch.id
+        }
+
+        store.socket.emit("BatchSendEvent", data)
+    }
+}
+
 function setupGameUI(store) {
     const container = document.getElementById("game-container")
     container.innerHTML = ""
@@ -36,13 +56,16 @@ function setupGameUI(store) {
     logView.id = "log-view"
     container.appendChild(logView)
 
-    const startButton = document.createElement('button')
-    startButton.innerHTML = "Start Game"
-    startButton.addEventListener('click', (e) => {
-        console.log("starting game...")
-        store.socket.emit("RoomStateChangeEvent", { state: "start" })
-    })
-    container.appendChild(startButton)
+    if (store.room.owner.username === store.username) {
+        const startButton = document.createElement('button')
+        startButton.innerHTML = "Start Game"
+        startButton.addEventListener('click', (e) => {
+            console.log("starting game...")
+            store.socket.emit("RoomStateChangeEvent", { state: "start" })
+            startButton.style.display = 'none'
+        })
+        container.appendChild(startButton)
+    }
 }
 
 function setupSocketCommunication(store) {
@@ -87,6 +110,11 @@ function setupSocketCommunication(store) {
     socket.on("PlanetOccupiedEvent", (event) => {
         console.log("PlanetOccupiedEvent", event)
         store.gameManager.handleAssignPlanet(event.planetId, event.newOwnerId)
+    })
+
+    socket.on("BatchSendEvent", (event) => {
+        console.log("BatchSendEvent", event)
+        store.gameManager.handleBatchSend(event)
     })
 
     store.socket = socket

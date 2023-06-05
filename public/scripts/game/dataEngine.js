@@ -32,7 +32,36 @@ class GameDataEngine {
         }
     }
 
-    sendBatch(fromPlanetId, toPlanetId) {
+    sendBatch(id, fromPlanetId, toPlanetId, count, newFromPlanetUnits) {
+        const fromPlanet = this.#findPlanetById(fromPlanetId);
+        const toPlanet = this.#findPlanetById(toPlanetId);
+
+        const owner = fromPlanet?.owner;
+
+        if (!fromPlanet || !toPlanet || !owner) {
+            return
+        }
+
+        const batch = {
+            id: id,
+            owner: owner,
+            fromPlanet: fromPlanet,
+            toPlanet: toPlanet,
+            count: count,
+            position: {
+                x: fromPlanet.x,
+                y: fromPlanet.y
+            }
+        };
+
+        // Subtract units from the source planet
+        fromPlanet.units = newFromPlanetUnits
+
+        // Add the batch to the room's batches array
+        this.#room.map.batches.push(batch);
+    }
+
+    createBatch(fromPlanetId, toPlanetId) {
         const fromPlanet = this.#findPlanetById(fromPlanetId);
         const toPlanet = this.#findPlanetById(toPlanetId);
         const owner = fromPlanet?.owner;
@@ -50,21 +79,12 @@ class GameDataEngine {
 
         const batch = {
             id: uuidv4(),
-            owner: owner,
             fromPlanet: fromPlanet,
             toPlanet: toPlanet,
             count: unitsToSend,
-            position: {
-                x: fromPlanet.x,
-                y: fromPlanet.y
-            }
         };
 
-        // Subtract units from the source planet
-        fromPlanet.units -= unitsToSend;
-
-        // Add the batch to the room's batches array
-        this.#room.map.batches.push(batch);
+        return batch
     }
 
     #updateResources() {
@@ -74,7 +94,7 @@ class GameDataEngine {
                 return
             }
 
-            const generatedUnits = Math.max(Math.round(planet.production / (60 * this.#framesPerSecond)), 1);
+            const generatedUnits = planet.production / (60 * this.#framesPerSecond)
             planet.units += generatedUnits;
         });
     }
@@ -108,17 +128,10 @@ class GameDataEngine {
                 Math.abs(batch.position.y - toPlanet.y) <= collisionThreshold
             ) {
                 // Handle collision logic
-                this.#handleCollision(batch, toPlanet);
+                batch.position.x = toPlanet.x
+                batch.position.y = toPlanet.y
             }
         });
-    }
-
-    #handleCollision(batch, planet) {
-        // Remove the batch from the room's batches array
-        const batchIndex = this.#room.map.batches.findIndex((b) => b.id === batch.id);
-        if (batchIndex !== -1) {
-            this.#room.map.batches.splice(batchIndex, 1);
-        }
     }
 
     #findPlanetById(planetId) {
