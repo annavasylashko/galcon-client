@@ -1,0 +1,82 @@
+.swal2-popup {
+    background-color: #3D3D3D !important;
+    color: #ffffff !important;
+}
+.swal2-confirm {
+    background-color: #41945F !important;
+    color: #ffffff !important;
+}
+.swal2-confirm:hover, .swal2-confirm:active, .swal2-confirm:focus {
+    outline: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    background-color: #41945F !important;
+    color: #ffffff !important;
+}
+.h2LabelText {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.loginForm {
+    text-align: center;
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.loginInputText,
+.loginPassword {
+    width: 200px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #FFF;
+}
+
+.loginButton {
+    padding: 12px 24px;
+    margin-right: 10px;
+    font-size: 18px;
+    border-radius: 4px;
+    border: none;
+    background-color: #41945F;
+    color: #FFF;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+    background-color: #41945F;
+}
+
+#loginForm {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+#registrationForm {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none;
+}
