@@ -1,5 +1,9 @@
+import { setupGameEngine } from "./game/game.js";
+
 const showBlockInfo = (block) => {
     console.log("Block Info:", block);
+    setupGameEngine(block)
+    loadContent('game')
 };
 
 let offset = 0;
