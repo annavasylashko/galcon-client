@@ -46,7 +46,7 @@ const showRooms = () => {
         roomBlock.className = 'room-block';
 
         const roomName = document.createElement('h2');
-        roomName.textContent = room.name;
+        roomName.textContent = `${room.owner.username}#${room.id}`;
         roomBlock.appendChild(roomName);
 
         const usersList = document.createElement('ul');
@@ -107,29 +107,6 @@ document.querySelector('.prevButton').addEventListener('click', showPrevRooms);
 // Отримання початкових 5 елементів при завантаженні сторінки
 getRooms();
 
-
-// const getRooms = () => {
-//     const token = localStorage.getItem('token');
-//
-//     if (token) {
-//         axios.get('http://localhost:8000/api/rooms', {
-//             headers: {
-//                 'Authorization': `Bearer ${token}`
-//             }
-//         }).then((response) => {
-//             console.log("Rooms:", response.data);
-//         }).catch((error) => {
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error!',
-//                 text: error.message
-//             });
-//         })
-//     }
-// };
-
-// getRooms()
-
 const getRoomById = (roomId) => {
     const token = localStorage.getItem('token');
 
@@ -159,8 +136,6 @@ const getRoomById = (roomId) => {
     }
 };
 
-// getRoomById(3);
-
 const createNewRoom = () => {
     const token = localStorage.getItem('token');
 
@@ -185,6 +160,7 @@ const createNewRoom = () => {
             }
         }).then((response) => {
             console.log("New Room:", response.data);
+            location.reload()
         }).catch((error) => {
             Swal.fire({
                 icon: 'error',
@@ -195,4 +171,4 @@ const createNewRoom = () => {
     }
 };
 
-// createNewRoom();
+document.querySelector('.createRoomButton').addEventListener('click', createNewRoom)

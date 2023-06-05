@@ -1,0 +1,54 @@
+.getRooms { 
+    padding: 12px 24px; 
+    margin-right: 10px; 
+    font-size: 18px; 
+    border-radius: 4px; 
+    border: none; 
+    background-color: #41945F; 
+    color: #FFF; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+} 
+ 
+.getRooms:hover { 
+    background-color: #33804d; 
+} 
+ 
+#rooms-content { 
+    text-align: center; 
+} 
+ 
+#rooms-container { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+} 
+ 
+.room-block { 
+    width: 200px; 
+    padding: 10px; 
+    margin: 10px; 
+    background-color: #333; 
+    color: #fff; 
+    border-radius: 5px; 
+    cursor: pointer; 
+} 
+ 
+.room-block h2 { 
+    font-size: 16px; 
+    margin-bottom: 10px; 
+} 
+ 
+.room-block ul { 
+    margin: 0; 
+    padding: 0; 
+} 
+ 
+.room-block li { 
+    font-size: 14px; 
+    margin-bottom: 5px; 
+} 
+ 
+.room-block:hover { 
+    background-color: #555; 
+}
