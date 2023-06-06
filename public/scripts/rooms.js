@@ -161,7 +161,7 @@ const createNewRoom = () => {
       },
     })
     .then(() => {
-      window.location.reload()
+      window.location.reload();
     })
     .catch(handleAPIError);
 };
