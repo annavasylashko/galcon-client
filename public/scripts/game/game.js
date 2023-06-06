@@ -1,10 +1,19 @@
-import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import { GameManager } from "./gameManager.js"
 
 async function setupGameEngine(room) {
     const store = {}
 
     store.room = await updateRoomInfo(room.id)
+
+    if (store.room.state !== 'init') {
+        Swal.fire({
+            icon: 'error',
+            title: "Can't join:",
+            text: 'Game has already started!'
+        });
+
+        return
+    }
 
     console.log("Updated room info:", store.room)
 
@@ -103,6 +112,7 @@ function setupSocketCommunication(store) {
 
         if (event.state == "end") {
             store.gameManager.handleEndGame()
+            store.socket.disconnect()
 
             return
         }
