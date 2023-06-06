@@ -19,8 +19,8 @@ class UIManager {
         this.#currentUser = currentUser
 
         this.#app = new PIXI.Application({
-            width: room.settings.width * this.#scaling,
-            height: room.settings.height * this.#scaling,
+            width: (room.settings.width + 2) * this.#scaling,
+            height: (room.settings.height + 2) * this.#scaling,
             backgroundAlpha: 0,
             resolution: window.devicePixelRatio || 1,
         });
@@ -97,8 +97,8 @@ class UIManager {
 
                 planetGraphics.beginFill(glowColor, glowAlpha);
                 planetGraphics.drawCircle(
-                    planet.x * this.#scaling,
-                    planet.y * this.#scaling,
+                    (planet.x + 1) * this.#scaling,
+                    (planet.y + 1) * this.#scaling,
                     (planet.radius + i * glowRadius) * this.#scaling
                 );
                 planetGraphics.endFill();
@@ -108,8 +108,8 @@ class UIManager {
             planetGraphics.beginFill(planetColor);
             planetGraphics.lineStyle(0.1 * this.#scaling, 0xffffff); // Set the white outline
             planetGraphics.drawCircle(
-                planet.x * this.#scaling,
-                planet.y * this.#scaling,
+                (planet.x + 1) * this.#scaling,
+                (planet.y + 1) * this.#scaling,
                 planet.radius * this.#scaling
             );
             planetGraphics.endFill();
@@ -128,8 +128,8 @@ class UIManager {
                 highlightColor
             );
             highlightGraphics.drawCircle(
-                planet.x * this.#scaling,
-                planet.y * this.#scaling,
+                (planet.x + 1) * this.#scaling,
+                (planet.y + 1) * this.#scaling,
                 (planet.radius + 0.3) * this.#scaling // Adjust the highlight radius as needed
             );
 
@@ -149,8 +149,8 @@ class UIManager {
 
             // Update the text properties
             text.text = Math.round(planet.units);
-            text.x = planet.x * this.#scaling;
-            text.y = planet.y * this.#scaling;
+            text.x = (planet.x + 1) * this.#scaling;
+            text.y = (planet.y + 1) * this.#scaling;
         });
     };
 
@@ -193,8 +193,8 @@ class UIManager {
             graphics.beginFill(batch.owner.color);
             graphics.lineStyle(0.05 * this.#scaling, 0xffffff); // Set the white outline
             graphics.drawCircle(
-                batch.position.x * this.#scaling,
-                batch.position.y * this.#scaling,
+                (batch.position.x + 1) * this.#scaling,
+                (batch.position.y + 1) * this.#scaling,
                 0.2 * this.#scaling // Adjust the radius of the circle as needed
             );
             graphics.endFill();
@@ -215,8 +215,8 @@ class UIManager {
 
             // Update the text properties
             text.text = batch.count;
-            text.x = batch.position.x * this.#scaling;
-            text.y = batch.position.y * this.#scaling;
+            text.x = (batch.position.x + 1) * this.#scaling;
+            text.y = (batch.position.y + 1) * this.#scaling;
         });
     };
 

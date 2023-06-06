@@ -87,6 +87,16 @@ class GameDataEngine {
         return batch
     }
 
+    collideBatch(batchId, planetId, newPlanetUnits) {
+        const batchIndex = this.#room.map.batches.findIndex((b) => b.id === batchId);
+        if (batchIndex !== -1) {
+            this.#room.map.batches.splice(batchIndex, 1);
+        }
+
+        const planet = this.#findPlanetById(planetId)
+        planet.units = newPlanetUnits
+    }
+
     #updateResources() {
         const planets = this.#room.map.planets;
         planets.forEach((planet) => {

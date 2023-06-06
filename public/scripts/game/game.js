@@ -57,7 +57,8 @@ function setupGameUI(store) {
     container.appendChild(logView)
 
     if (store.room.owner.username === store.username) {
-        const startButton = document.createElement('button')
+        const startButton = document.createElement('div')
+        startButton.classList = 'game-button'
         startButton.innerHTML = "Start Game"
         startButton.addEventListener('click', (e) => {
             console.log("starting game...")
@@ -115,6 +116,11 @@ function setupSocketCommunication(store) {
     socket.on("BatchSendEvent", (event) => {
         console.log("BatchSendEvent", event)
         store.gameManager.handleBatchSend(event)
+    })
+
+    socket.on("BatchCollisionEvent", (event) => {
+        console.log("BatchCollisionEvent", event)
+        store.gameManager.handleBatchCollision(event.batchId, event.planetId, event.newPlanetUnits)
     })
 
     store.socket = socket

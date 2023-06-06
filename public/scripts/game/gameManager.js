@@ -74,6 +74,10 @@ class GameManager {
         )
     }
 
+    handleBatchCollision = (batchId, planetId, newPlanetUnits) => {
+        this.#gameDataEngine.collideBatch(batchId, planetId, newPlanetUnits)
+    }
+
     #setupDataEngine = (room) => {
         this.#gameDataEngine = new GameDataEngine(room)
         this.#gameDataEngine.logger = this.#log
@@ -90,6 +94,10 @@ class GameManager {
     }
 
     #log = (string) => {
+        this.#uiManager.log(string)
+        this.#uiManager.log(string)
+        this.#uiManager.log(string)
+        this.#uiManager.log(string)
         this.#uiManager.log(string)
     }
 }
