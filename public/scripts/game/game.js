@@ -1,5 +1,8 @@
 import { GameManager } from "./gameManager.js"
 
+const startButton = document.createElement('div')
+const container = document.getElementById("game-container")
+
 async function setupGameEngine(room) {
     const store = {}
 
@@ -58,7 +61,6 @@ function setupGameManager(store) {
 }
 
 function setupGameUI(store) {
-    const container = document.getElementById("game-container")
     container.innerHTML = ""
 
     const gameView = store.gameManager.getGameView()
@@ -70,13 +72,11 @@ function setupGameUI(store) {
     container.appendChild(logView)
 
     if (store.room.owner.username === store.username) {
-        const startButton = document.createElement('div')
         startButton.classList = 'game-button'
         startButton.innerHTML = "Start Game"
         startButton.addEventListener('click', (e) => {
             console.log("starting game...")
             store.socket.emit("RoomStateChangeEvent", { state: "start" })
-            startButton.style.display = 'none'
         })
         container.appendChild(startButton)
     }
@@ -112,10 +112,6 @@ function setupSocketCommunication(store) {
             title: "Logical error:",
             text: event.message
         });
-
-        store.socket.disconnect()
-
-        loadContent('rooms')
     });
 
     socket.on("RoomUserJoin", (event) => {
@@ -123,11 +119,17 @@ function setupSocketCommunication(store) {
         store.gameManager.handleRoomJoin(event.user)
     })
 
+    socket.on("RoomUserLeave", (event) => {
+        console.log("RoomUserLeave", event);
+        store.gameManager.handleRoomLeave(event.user)
+    })
+
     socket.on("RoomStateChangeEvent", (event) => {
         console.log("RoomStateChangeEvent", event)
 
         if (event.state == "start") {
             store.gameManager.handleStartGame()
+            startButton.style.display = 'none'
 
             return
         }
@@ -136,11 +138,9 @@ function setupSocketCommunication(store) {
             store.gameManager.handleEndGame()
             store.socket.disconnect()
 
-            const winner = store.gameManager.getWinner()
-
             Swal.fire({
                 title: "Game ended!",
-                text: `The winner is ${winner.username}`
+                text: `The winner is ${event.winner.username}`
             })
             .then(() => {
                 loadContent('rooms')

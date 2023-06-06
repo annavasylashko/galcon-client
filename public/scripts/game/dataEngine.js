@@ -141,10 +141,10 @@ class GameDataEngine {
             batch.position.y += deltaY;
 
             // Check for collision with the target planet
-            const collisionThreshold = 0.1; // Adjust this value as needed
+            const collisionThreshold = 0.001; // Adjust this value as needed
             if (
-                Math.abs(batch.position.x - toPlanet.x) <= collisionThreshold &&
-                Math.abs(batch.position.y - toPlanet.y) <= collisionThreshold
+                Math.abs(batch.position.x - toCoordinates.x) <= collisionThreshold &&
+                Math.abs(batch.position.y - toCoordinates.y) <= collisionThreshold
             ) {
                 // Handle collision logic
                 batch.position.x = toCoordinates.x

@@ -12,7 +12,7 @@ class UIManager {
 
     #logView = document.createElement('div')
 
-    #scaling = 100
+    #scaling = 160
 
     constructor(room, currentUser) {
         this.#room = room;

@@ -61,6 +61,15 @@ class GameManager {
         }
     }
 
+    handleRoomLeave = (user) => {
+        const users = this.#room.users
+        const index = users.indexOf(user)
+
+        this.#log(`User: ${user.username} left!`)
+
+        users.splice(index, 1)
+    }
+
     handleAssignPlanet = (planetId, userId) => {
         this.#gameDataEngine.assignPlanetToUser(planetId, userId)
     }
@@ -79,32 +88,6 @@ class GameManager {
 
     handleBatchCollision = (batchId, planetId, newPlanetUnits) => {
         this.#gameDataEngine.collideBatch(batchId, planetId, newPlanetUnits)
-    }
-
-    getWinner = () => {
-        const planetCountByUser = {};
-
-        this.#room.map.planets.forEach((planet) => {
-            if (planet.owner) {
-                const ownerId = planet.owner.id;
-                planetCountByUser[ownerId] = (planetCountByUser[ownerId] || 0) + 1;
-            }
-        });
-
-        let maxPlanetCount = 0;
-        let userWithMostPlanets;
-
-        this.#room.users.forEach((user) => {
-            const userId = user.id;
-            const planetCount = planetCountByUser[userId] || 0;
-
-            if (planetCount > maxPlanetCount) {
-                maxPlanetCount = planetCount;
-                userWithMostPlanets = user;
-            }
-        });
-
-        return userWithMostPlanets;
     }
 
     #setupDataEngine = (room) => {
