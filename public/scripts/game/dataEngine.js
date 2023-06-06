@@ -23,12 +23,15 @@ class GameDataEngine {
     assignPlanetToUser(planetId, userId) {
         const planet = this.#findPlanetById(planetId);
         const user = this.#findUserById(userId);
+
         if (planet && user) {
             planet.owner = user;
 
             if (this.logger) {
                 this.logger(`Planet '${planetId}' is now under control of ${user.username}`)
             }
+        } else {
+            console.log("Planet or user does not exists")
         }
     }
 

@@ -100,6 +100,8 @@ function setupSocketCommunication(store) {
             text: event.message
         });
 
+        store.socket.disconnect()
+
         loadContent('rooms')
     });
 
@@ -110,6 +112,8 @@ function setupSocketCommunication(store) {
             title: "Logical error:",
             text: event.message
         });
+
+        store.socket.disconnect()
 
         loadContent('rooms')
     });
@@ -131,6 +135,16 @@ function setupSocketCommunication(store) {
         if (event.state == "end") {
             store.gameManager.handleEndGame()
             store.socket.disconnect()
+
+            const winner = store.gameManager.getWinner()
+
+            Swal.fire({
+                title: "Game ended!",
+                text: `The winner is ${winner.username}`
+            })
+            .then((result) => {
+                loadContent('rooms')
+            })
 
             return
         }
