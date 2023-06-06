@@ -16,19 +16,24 @@
  
 #rooms-content { 
     text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
 } 
  
 #rooms-container { 
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
+    align-items: center;
 } 
  
 .room-block { 
     width: 200px; 
     padding: 10px; 
     margin: 10px; 
-    background-color: #333; 
+    background-color: #444; 
     color: #fff; 
     border-radius: 5px; 
     cursor: pointer; 
@@ -50,5 +55,13 @@
 } 
  
 .room-block:hover { 
-    background-color: #555; 
+    background-color: #666; 
+}
+
+.navigation-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }

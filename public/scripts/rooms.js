@@ -1,5 +1,10 @@
-const showBlockInfo = (block) => {
+import { setupGameEngine } from "./game/game.js";
+
+const showBlockInfo = async (block) => {
     console.log("Block Info:", block);
+    if (await setupGameEngine(block)) {
+        loadContent('game')
+    }
 };
 
 let offset = 0;
@@ -52,14 +57,14 @@ const showRooms = () => {
         const usersList = document.createElement('ul');
         room.users.forEach((user) => {
             const userItem = document.createElement('li');
-            userItem.textContent = `User: ${user.user}`;
+            userItem.textContent = `User: ${user.username}`;
             usersList.appendChild(userItem);
         });
         roomBlock.appendChild(usersList);
 
         // Додайте обробник onClick для кожного блоку
-        roomBlock.onclick = () => {
-            showBlockInfo(room);
+        roomBlock.onclick = async () => {
+            await showBlockInfo(room);
         };
 
         roomsContainer.appendChild(roomBlock);
@@ -74,14 +79,18 @@ const updateNavigationButtons = () => {
 
     if (currentIndex === 0) {
         prevButton.disabled = true;
+        prevButton.classList.add('disabled')
     } else {
         prevButton.disabled = false;
+        prevButton.classList.remove('disabled')
     }
 
     if (currentIndex + limit >= rooms.length) {
         nextButton.disabled = true;
+        nextButton.classList.add('disabled')
     } else {
         nextButton.disabled = false;
+        nextButton.classList.remove('disabled')
     }
 };
 
@@ -149,7 +158,7 @@ const createNewRoom = () => {
                 height: 5,
                 minPlanetProduction: 30,
                 maxPlanetProduction: 100,
-                speed: 0.03,
+                speed: 0.1,
                 distanceOffset: 0.3
             }
         };

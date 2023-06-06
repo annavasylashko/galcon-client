@@ -12,7 +12,9 @@ const loginCheck = () => {
         axios.post('http://localhost:8000/api/tokens', { username, password })
             .then(function(response) {
                 const token = response.data.token;
+
                 localStorage.setItem('token', token);
+                localStorage.setItem('username', username);
 
                 window.location.href = "index.html";
             })
@@ -64,7 +66,7 @@ const createNewUser = () => {
             .catch((error) => {
                 if (error.response) {
                     Swal.fire({
-                        icon: 'success',
+                        icon: 'error',
                         title: 'Error!',
                         text: error.response.data.message
                     });

@@ -1,0 +1,65 @@
+#game-container {
+    width: 100%;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#game-view {
+    position: relative;
+    max-width: 100%;
+    max-height: calc(100% - 10rem);
+}
+
+#log-view {
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 10rem;
+ 
+    position: sticky;
+    bottom: 0;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0px;
+    right: 0px;
+}
+
+#log-view p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#log-view p:last-child {
+    color: rgba(255, 255, 255, 1);
+}
+
+.game-button { 
+    padding: 10px 60px; 
+    margin: 10px; 
+    background-color: #333; 
+    color: #fff; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    text-align: center;
+} 
+ 
+.game-button:hover { 
+    background-color: #555; 
+}
+
+.game-button.disabled {
+    background-color: #111;
+    cursor: default;
+    pointer-events: none;
+}
+
+.game-button.disabled:hover {
+    background-color: #111;
+}

@@ -14,6 +14,7 @@
     <link href="styles/navigation.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scripts/navigation.js"></script>
 </head>
@@ -34,14 +35,16 @@
         <h1>Rooms</h1>
         <div id="rooms-container"></div>
         <div class="navigation-buttons">
-            <button class="prevButton" type="button">Previous</button>
-            <button class="nextButton" type="button">Next</button>
+            <div class="prevButton game-button" type="button">Previous</div>
+            <div class="nextButton game-button" type="button">Next</div>
         </div>
-        <button class="createRoomButton" type="button">Create new room</button>
+        <div class="createRoomButton game-button" type="button">Create new room</div>
     </div>
 
     <div id="game-content" style="display: none;">
-        <h1>Game</h1>
+        <div id="game-container">
+            <h1>Select room to join game</h1>
+        </div>
     </div>
 
     <div id="profile-content" style="display: none;">
@@ -54,6 +57,7 @@
 </div>
 
 <script src="scripts/navigation.js"></script>
-<script src="scripts/rooms.js"></script>
+<script src="scripts/rooms.js" type="module"></script>
+<script src="scripts/game/game.js" type="module"></script>
 </body>
 </html>
