@@ -12,7 +12,9 @@ async function setupGameEngine(room) {
             text: 'Game has already started!'
         });
 
-        return
+        loadContent('rooms')
+
+        return false
     }
 
     console.log("Updated room info:", store.room)
@@ -22,6 +24,8 @@ async function setupGameEngine(room) {
     setupGameManager(store)
     setupSocketCommunication(store)
     setupGameUI(store)
+
+    return true
 }
 
 async function updateRoomInfo(roomId) {
@@ -90,10 +94,24 @@ function setupSocketCommunication(store) {
 
     socket.on("connect_error", (event) => {
         console.log("Connection error catched: ", event);
+        Swal.fire({
+            icon: 'error',
+            title: "Connection Error:",
+            text: event.message
+        });
+
+        loadContent('rooms')
     });
 
     socket.on("ErrorEvent", (event) => {
         console.log("Logical error catched: ", event);
+        Swal.fire({
+            icon: 'error',
+            title: "Logical error:",
+            text: event.message
+        });
+
+        loadContent('rooms')
     });
 
     socket.on("RoomUserJoin", (event) => {

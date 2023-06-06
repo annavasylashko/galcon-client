@@ -2,8 +2,9 @@ import { setupGameEngine } from "./game/game.js";
 
 const showBlockInfo = async (block) => {
     console.log("Block Info:", block);
-    await setupGameEngine(block)
-    loadContent('game')
+    if (await setupGameEngine(block)) {
+        loadContent('game')
+    }
 };
 
 let offset = 0;
