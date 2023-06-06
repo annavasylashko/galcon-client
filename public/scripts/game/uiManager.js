@@ -8,7 +8,7 @@ class UIManager {
 
     #planetGraphics = new Map();
     #batchGraphics = new Map();
-    #selectedPlanet = null;
+    #selectedPlanets = [];
 
     #logView = document.createElement('div')
 
@@ -41,10 +41,12 @@ class UIManager {
 
     startRenderLoop = () => {
         this.#app.ticker.add(this.#render);
+        document.addEventListener('keydown', (e) => this.#handleKeyPress(e));
     }
 
     stopRenderLoop = () => {
         this.#app.ticker.remove(this.render);
+        document.removeEventListener('keydown', (e) => this.#handleKeyPress(e))
     };
 
     #render = () => {
@@ -116,7 +118,7 @@ class UIManager {
 
             let highlightColor = '#00000000'
 
-            if (this.#selectedPlanet && planet.id == this.#selectedPlanet.id) {
+            if (this.#selectedPlanets.some((p) => p.id === planet.id)) {
                 highlightColor = '#FFFFFFFF'
             } else if (graphics.highlighted) {
                 highlightColor = '#FFFFFF88'
@@ -221,22 +223,38 @@ class UIManager {
     };
 
     #handlePlanetSelection = (planet) => {
-        if (this.#selectedPlanet) {
-            if (this.#selectedPlanet.id !== planet.id) {
-                this.handleBatchSend(this.#selectedPlanet.id, planet.id)
+        const selectedPlanets = this.#selectedPlanets
+        const currentUser = this.#currentUser
+
+        if (selectedPlanets.length === 0 && planet.owner && planet.owner.username === currentUser) {
+            this.#selectedPlanets = [planet]
+
+            return
+        }
+
+        for (const p of selectedPlanets) {
+            this.handleBatchSend(p.id, planet.id)
+        }
+
+        this.#selectedPlanets = []
+    }
+
+    #handleKeyPress(event) {
+        const planets = this.#room.map.planets
+        const currentUser = this.#currentUser
+
+        if (event.key === 'a') {
+            for (const planet of planets) {
+                if (planet.owner && planet.owner.username === currentUser) {
+                    this.#selectedPlanets.push(planet)
+                }
             }
 
-            this.#selectedPlanet = null
-
             return
         }
 
-        if (!planet.owner) {
-            return
-        }
-
-        if (planet.owner.username === this.#currentUser) {
-            this.#selectedPlanet = planet
+        if (event.key === 'Escape') {
+            this.#selectedPlanets = []
         }
     }
 }
