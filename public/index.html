@@ -55,15 +55,21 @@
       </div>
 
       <div id="profile-content" style="display: none">
-        <h1>Profile</h1>
+        <h1 id="username"></h1>
+        <div id="logout-button" class="game-button" type="button">Logout</div>
       </div>
 
       <div id="settings-content" style="display: none">
-        <h1>Settings</h1>
+        <h1>Room settings</h1>
+        <textarea id="settings" cols=50 rows=10></textarea>
+        <div id="set-settings-button" class="game-button" type="button">Apply</div>
+        <div id="reset-settings-button" class="game-button" type="button">Reset</div>
       </div>
     </div>
 
     <script src="scripts/navigation.js"></script>
+    <script src="scripts/profile.js"></script>
+    <script src="scripts/settings.js"></script>
     <script src="scripts/rooms.js" type="module"></script>
     <script src="scripts/game/game.js" type="module"></script>
   </body>

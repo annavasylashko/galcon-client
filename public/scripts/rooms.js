@@ -154,27 +154,14 @@ const createNewRoom = () => {
 
   const url = 'http://localhost:8000/api/rooms';
 
-  const roomSettings = {
-    settings: {
-      planetCount: 10,
-      width: 12,
-      height: 5,
-      minPlanetProduction: 30,
-      maxPlanetProduction: 100,
-      speed: 0.1,
-      distanceOffset: 0.3,
-    },
-  };
-
   axios
-    .post(url, roomSettings, {
+    .post(url, JSON.parse(localStorage.getItem('roomSettings')), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => {
-      console.log('New Room:', response.data);
-      location.reload();
+    .then(() => {
+      window.location.reload()
     })
     .catch(handleAPIError);
 };
