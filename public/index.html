@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galcon</title>
-    <link href="styles/style.css" rel="stylesheet"/>
-    <link href="styles/profile.css" rel="stylesheet"/>
-    <link href="styles/rooms.css" rel="stylesheet"/>
-    <link href="styles/game.css" rel="stylesheet"/>
-    <link href="styles/settings.css" rel="stylesheet"/>
-    <link href="styles/auth.css" rel="stylesheet"/>
-    <link href="styles/navigation.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet" />
+    <link href="styles/profile.css" rel="stylesheet" />
+    <link href="styles/rooms.css" rel="stylesheet" />
+    <link href="styles/game.css" rel="stylesheet" />
+    <link href="styles/settings.css" rel="stylesheet" />
+    <link href="styles/auth.css" rel="stylesheet" />
+    <link href="styles/navigation.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scripts/navigation.js"></script>
-</head>
-<body>
-<div class="stars"></div>
-<div class="twinkling"></div>
-<div class="clouds"></div>
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
 
-<div class="navigation">
-    <h1 id="rooms-tab">Rooms</h1>
-    <h1 id="game-tab">Game</h1>
-    <h1 id="profile-tab">Profile</h1>
-    <h1 id="settings-tab">Settings</h1>
-</div>
+    <div class="navigation">
+      <h1 id="rooms-tab">Rooms</h1>
+      <h1 id="game-tab">Game</h1>
+      <h1 id="profile-tab">Profile</h1>
+      <h1 id="settings-tab">Settings</h1>
+    </div>
 
-<div id="content-container">
-    <div id="rooms-content">
+    <div id="content-container">
+      <div id="rooms-content">
         <h1>Rooms</h1>
         <div id="rooms-container"></div>
         <div class="navigation-buttons">
-            <div class="prevButton game-button disabled" type="button">Previous</div>
-            <div class="nextButton game-button disabled" type="button">Next</div>
+          <div class="prevButton game-button disabled" type="button">
+            Previous
+          </div>
+          <div class="nextButton game-button disabled" type="button">Next</div>
         </div>
-        <div class="createRoomButton game-button" type="button">Create new room</div>
-    </div>
+        <div class="createRoomButton game-button" type="button">
+          Create new room
+        </div>
+      </div>
 
-    <div id="game-content" style="display: none;">
+      <div id="game-content" style="display: none">
         <div id="game-container">
-            <h1>Select room to join game</h1>
+          <h1>Select room to join game</h1>
         </div>
-    </div>
+      </div>
 
-    <div id="profile-content" style="display: none;">
+      <div id="profile-content" style="display: none">
         <h1>Profile</h1>
-    </div>
+      </div>
 
-    <div id="settings-content" style="display: none;">
+      <div id="settings-content" style="display: none">
         <h1>Settings</h1>
+      </div>
     </div>
-</div>
 
-<script src="scripts/navigation.js"></script>
-<script src="scripts/rooms.js" type="module"></script>
-<script src="scripts/game/game.js" type="module"></script>
-</body>
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/rooms.js" type="module"></script>
+    <script src="scripts/game/game.js" type="module"></script>
+  </body>
 </html>
