@@ -35,7 +35,10 @@ class GameDataEngine {
         }
     }
 
-    sendBatch(id, fromPlanetId, toPlanetId, count, newFromPlanetUnits) {
+    sendBatch(
+        id, fromPlanetId, toPlanetId, count, newFromPlanetUnits,
+        fromCoordinates, toCoordinates
+    ) {
         const fromPlanet = this.#findPlanetById(fromPlanetId);
         const toPlanet = this.#findPlanetById(toPlanetId);
 
@@ -48,12 +51,12 @@ class GameDataEngine {
         const batch = {
             id: id,
             owner: owner,
-            fromPlanet: fromPlanet,
-            toPlanet: toPlanet,
+            fromCoordinates: fromCoordinates,
+            toCoordinates: toCoordinates,
             count: count,
             position: {
-                x: fromPlanet.x,
-                y: fromPlanet.y
+                x: fromCoordinates.x,
+                y: fromCoordinates.y
             }
         };
 
@@ -116,20 +119,23 @@ class GameDataEngine {
         const batches = this.#room.map.batches;
 
         batches.forEach((batch) => {
-            const fromPlanet = batch.fromPlanet
-            const toPlanet = batch.toPlanet
+            const fromCoordinates = batch.fromCoordinates
+            const toCoordinates = batch.toCoordinates
 
-            if (!fromPlanet || !toPlanet) {
+            if (!fromCoordinates || !toCoordinates) {
                 return
             }
 
             const distance = Math.sqrt(
-                Math.pow(toPlanet.x - fromPlanet.x, 2) + Math.pow(toPlanet.y - fromPlanet.y, 2)
+                Math.pow(
+                    toCoordinates.x - fromCoordinates.x, 2
+                )
+                + Math.pow(toCoordinates.y - fromCoordinates.y, 2)
             );
 
             const speed = this.#room.map.settings.speed;
-            const deltaX = ((toPlanet.x - fromPlanet.x) / distance) * (speed / this.#framesPerSecond);
-            const deltaY = ((toPlanet.y - fromPlanet.y) / distance) * (speed / this.#framesPerSecond);
+            const deltaX = ((toCoordinates.x - fromCoordinates.x) / distance) * (speed / this.#framesPerSecond);
+            const deltaY = ((toCoordinates.y - fromCoordinates.y) / distance) * (speed / this.#framesPerSecond);
 
             batch.position.x += deltaX;
             batch.position.y += deltaY;
@@ -141,8 +147,8 @@ class GameDataEngine {
                 Math.abs(batch.position.y - toPlanet.y) <= collisionThreshold
             ) {
                 // Handle collision logic
-                batch.position.x = toPlanet.x
-                batch.position.y = toPlanet.y
+                batch.position.x = toCoordinates.x
+                batch.position.y = toCoordinates.y
             }
         });
     }

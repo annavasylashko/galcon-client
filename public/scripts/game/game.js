@@ -69,8 +69,6 @@ function setupGameUI(store) {
     logView.id = "log-view"
     container.appendChild(logView)
 
-    console.log("is owner:", store.room.owner.username === store.username)
-
     if (store.room.owner.username === store.username) {
         const startButton = document.createElement('div')
         startButton.classList = 'game-button'
@@ -144,7 +142,7 @@ function setupSocketCommunication(store) {
                 title: "Game ended!",
                 text: `The winner is ${winner.username}`
             })
-            .then((result) => {
+            .then(() => {
                 loadContent('rooms')
             })
 

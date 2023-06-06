@@ -71,7 +71,9 @@ class GameManager {
             batch.fromPlanetId,
             batch.toPlanetId,
             batch.count,
-            batch.newFromPlanetUnits
+            batch.newFromPlanetUnits,
+            { x: batch.fromX, y: batch.fromY },
+            { x: batch.toX, y: batch.toY }
         )
     }
 
