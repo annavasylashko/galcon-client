@@ -1,0 +1,29 @@
+.navigation {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.navigation h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navigation h1:hover {
+    color: #ff9800;
+}
+
+#content-container {
+    margin-top: 80px;
+}
