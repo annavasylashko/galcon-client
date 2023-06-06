@@ -12,32 +12,42 @@ const limit = 5;
 const rooms = [];
 let currentIndex = 0;
 
+const handleAPIError = (error) => {
+    if (error.response.status === 401) {
+        Swal.fire({
+            title: 'Unauthorized',
+            text: 'You will be redirected to authorization screen'
+        })
+        .then(() => {
+            window.location.href = "auth.html"
+        })
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: error.message
+        })
+    }
+}
+
 const getRooms = () => {
     const token = localStorage.getItem('token');
 
-    if (token) {
-        axios
-            .get('http://localhost:8000/api/rooms', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                params: {
-                    offset,
-                    limit
-                }
-            })
-            .then((response) => {
-                rooms.push(...response.data);
-                showRooms();
-            })
-            .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: error.message
-                });
-            });
-    }
+    axios
+        .get('http://localhost:8000/api/rooms', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            params: {
+                offset,
+                limit
+            }
+        })
+        .then((response) => {
+            rooms.push(...response.data);
+            showRooms();
+        })
+        .catch(handleAPIError);
 };
 
 const showRooms = () => {
@@ -119,65 +129,49 @@ getRooms();
 const getRoomById = (roomId) => {
     const token = localStorage.getItem('token');
 
-    if (token) {
-        const url = `http://localhost:8000/api/rooms/${roomId}`;
+    const url = `http://localhost:8000/api/rooms/${roomId}`;
 
-        axios.get(url, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then((response) => {
-            console.log("Room by id:", response.data);
-            if (!response.data) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Warning!',
-                    text: 'Room not found'
-                });
-            }
-        }).catch((error) => {
+    axios.get(url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then((response) => {
+        console.log("Room by id:", response.data);
+        if (!response.data) {
             Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: error.message
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Room not found'
             });
-        });
-    }
+        }
+    }).catch(handleAPIError);
 };
 
 const createNewRoom = () => {
     const token = localStorage.getItem('token');
 
-    if (token) {
-        const url = 'http://localhost:8000/api/rooms';
+    const url = 'http://localhost:8000/api/rooms';
 
-        const roomSettings = {
-            settings: {
-                planetCount: 10,
-                width: 12,
-                height: 5,
-                minPlanetProduction: 30,
-                maxPlanetProduction: 100,
-                speed: 0.1,
-                distanceOffset: 0.3
-            }
-        };
+    const roomSettings = {
+        settings: {
+            planetCount: 10,
+            width: 12,
+            height: 5,
+            minPlanetProduction: 30,
+            maxPlanetProduction: 100,
+            speed: 0.1,
+            distanceOffset: 0.3
+        }
+    };
 
-        axios.post(url, roomSettings, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then((response) => {
-            console.log("New Room:", response.data);
-            location.reload()
-        }).catch((error) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: error.message
-            });
-        });
-    }
+    axios.post(url, roomSettings, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then((response) => {
+        console.log("New Room:", response.data);
+        location.reload()
+    }).catch(handleAPIError);
 };
 
 document.querySelector('.createRoomButton').addEventListener('click', createNewRoom)

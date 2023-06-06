@@ -231,6 +231,10 @@ class UIManager {
             return
         }
 
+        if (!planet.owner) {
+            return
+        }
+
         if (planet.owner.username === this.#currentUser) {
             this.#selectedPlanet = planet
         }
