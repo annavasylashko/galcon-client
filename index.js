@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 
-app.use(express.static('public', {
-    extensions: ['html', 'htm']
-}));
+app.use(
+  express.static('public', {
+    extensions: ['html', 'htm'],
+  })
+);
 
 // Define routes
 app.get('/', (req, res) => {

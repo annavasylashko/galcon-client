@@ -1,56 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galcon</title>
-    <link href="styles/style.css" rel="stylesheet"/>
-    <link href="styles/auth.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet" />
+    <link href="styles/auth.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-<div class="stars"></div>
-<div class="twinkling"></div>
-<div class="clouds"></div>
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
 
-<div class="registrationContainer">
-    <div id="loginForm">
+    <div class="registrationContainer">
+      <div id="loginForm">
         <h2 class="h2LabelText">Login</h2>
         <form class="loginForm" id="loginFormElement">
-            <label for="loginUsername">Username:</label>
-            <input class="loginInputText" placeholder="Username" type="text" id="loginUsername"
-                   name="loginUsernameOrMail"><br><br/>
+          <label for="loginUsername">Username:</label>
+          <input
+            class="loginInputText"
+            placeholder="Username"
+            type="text"
+            id="loginUsername"
+            name="loginUsernameOrMail"
+          /><br /><br />
 
-            <label for="loginPassword">Password:</label>
-            <input class="loginPassword" placeholder="Password" type="password" id="loginPassword" name="loginPassword"><br><br/>
+          <label for="loginPassword">Password:</label>
+          <input
+            class="loginPassword"
+            placeholder="Password"
+            type="password"
+            id="loginPassword"
+            name="loginPassword"
+          /><br /><br />
 
-            <button class="loginButton" type="submit">Login</button>
-            <button class="loginButton" type="button" onclick="showRegistrationForm()">Register</button>
+          <button class="loginButton" type="submit">Login</button>
+          <button
+            class="loginButton"
+            type="button"
+            onclick="showRegistrationForm()"
+          >
+            Register
+          </button>
         </form>
-    </div>
+      </div>
 
-    <div id="registrationForm" class="hidden">
+      <div id="registrationForm" class="hidden">
         <h2 class="h2LabelText">Registration</h2>
         <form class="loginForm" id="registrationFormElement">
-            <label for="newRegUsername">Username:</label>
-            <input class="loginInputText" placeholder="Username" type="text" id="newRegUsername" name="newRegUsername"><br><br/>
+          <label for="newRegUsername">Username:</label>
+          <input
+            class="loginInputText"
+            placeholder="Username"
+            type="text"
+            id="newRegUsername"
+            name="newRegUsername"
+          /><br /><br />
 
-            <label for="newRegPassword">Password:</label>
-            <input class="loginPassword" placeholder="Password" type="password" id="newRegPassword"
-                   name="newRegPassword"><br><br/>
+          <label for="newRegPassword">Password:</label>
+          <input
+            class="loginPassword"
+            placeholder="Password"
+            type="password"
+            id="newRegPassword"
+            name="newRegPassword"
+          /><br /><br />
 
-            <label for="repeatedPassword">Repeat password:</label>
-            <input class="loginPassword" placeholder="Repeat password" type="password" id="repeatedPassword"
-                   name="repeatedPassword"><br><br/>
+          <label for="repeatedPassword">Repeat password:</label>
+          <input
+            class="loginPassword"
+            placeholder="Repeat password"
+            type="password"
+            id="repeatedPassword"
+            name="repeatedPassword"
+          /><br /><br />
 
-            <button class="loginButton" type="submit">Register</button>
-            <button class="loginButton" type="button" onclick="showLoginForm()">Return to login</button>
+          <button class="loginButton" type="submit">Register</button>
+          <button class="loginButton" type="button" onclick="showLoginForm()">
+            Return to login
+          </button>
         </form>
+      </div>
     </div>
-</div>
-<script src="scripts/auth.js"></script>
-</body>
+    <script src="scripts/auth.js"></script>
+  </body>
 </html>
