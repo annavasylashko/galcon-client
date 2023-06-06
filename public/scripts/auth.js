@@ -66,7 +66,7 @@ const createNewUser = () => {
             .catch((error) => {
                 if (error.response) {
                     Swal.fire({
-                        icon: 'success',
+                        icon: 'error',
                         title: 'Error!',
                         text: error.response.data.message
                     });

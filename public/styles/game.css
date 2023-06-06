@@ -41,8 +41,7 @@
 }
 
 .game-button { 
-    width: 200px; 
-    padding: 10px; 
+    padding: 10px 60px; 
     margin: 10px; 
     background-color: #333; 
     color: #fff; 
@@ -53,4 +52,14 @@
  
 .game-button:hover { 
     background-color: #555; 
+}
+
+.game-button.disabled {
+    background-color: #111;
+    cursor: default;
+    pointer-events: none;
+}
+
+.game-button.disabled:hover {
+    background-color: #111;
 }

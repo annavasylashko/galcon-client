@@ -95,10 +95,6 @@ class GameManager {
 
     #log = (string) => {
         this.#uiManager.log(string)
-        this.#uiManager.log(string)
-        this.#uiManager.log(string)
-        this.#uiManager.log(string)
-        this.#uiManager.log(string)
     }
 }
 

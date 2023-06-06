@@ -56,7 +56,7 @@ const showRooms = () => {
         const usersList = document.createElement('ul');
         room.users.forEach((user) => {
             const userItem = document.createElement('li');
-            userItem.textContent = `User: ${user.user}`;
+            userItem.textContent = `User: ${user.username}`;
             usersList.appendChild(userItem);
         });
         roomBlock.appendChild(usersList);
@@ -78,14 +78,18 @@ const updateNavigationButtons = () => {
 
     if (currentIndex === 0) {
         prevButton.disabled = true;
+        prevButton.classList.add('disabled')
     } else {
         prevButton.disabled = false;
+        prevButton.classList.remove('disabled')
     }
 
     if (currentIndex + limit >= rooms.length) {
         nextButton.disabled = true;
+        nextButton.classList.add('disabled')
     } else {
         nextButton.disabled = false;
+        nextButton.classList.remove('disabled')
     }
 };
 
