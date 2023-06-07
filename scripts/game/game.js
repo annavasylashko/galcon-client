@@ -1,5 +1,6 @@
 import { GameManager } from './gameManager.js';
 
+const serverUrl = null;
 const startButton = document.createElement('div');
 const container = document.getElementById('game-container');
 
@@ -34,7 +35,7 @@ async function setupGameEngine(room) {
 async function updateRoomInfo(roomId) {
   const token = localStorage.getItem('token');
 
-  const url = `http://localhost:8000/api/rooms/${roomId}`;
+  const url = `${serverUrl}/api/rooms/${roomId}`;
 
   const response = await axios.get(url, {
     headers: {
@@ -83,7 +84,7 @@ function setupGameUI(store) {
 }
 
 function setupSocketCommunication(store) {
-  const socket = io('http://localhost:8000/', {
+  const socket = io(`${serverUrl}`, {
     auth: {
       token: window.localStorage.getItem('token'),
     },

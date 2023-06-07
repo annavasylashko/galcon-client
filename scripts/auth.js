@@ -1,3 +1,5 @@
+const serverUrl = null;
+
 const loginCheck = () => {
   const username = document.getElementById('loginUsername').value;
   const password = document.getElementById('loginPassword').value;
@@ -10,7 +12,7 @@ const loginCheck = () => {
     });
   } else {
     axios
-      .post('http://localhost:8000/api/tokens', { username, password })
+      .post(`${serverUrl}/api/tokens`, { username, password })
       .then(function (response) {
         const token = response.data.token;
 
@@ -56,7 +58,7 @@ const createNewUser = () => {
     });
   } else {
     axios
-      .post('http://localhost:8000/api/users', { username, password })
+      .post(`${serverUrl}/api/users`, { username, password })
       .then((response) => {
         Swal.fire({
           icon: 'success',

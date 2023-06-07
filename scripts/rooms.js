@@ -1,3 +1,5 @@
+const serverUrl = null;
+
 import { setupGameEngine } from './game/game.js';
 
 const showBlockInfo = async (block) => {
@@ -33,7 +35,7 @@ const getRooms = () => {
   const token = localStorage.getItem('token');
 
   axios
-    .get('http://localhost:8000/api/rooms', {
+    .get(`${serverUrl}/api/rooms`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -128,7 +130,7 @@ getRooms();
 const getRoomById = (roomId) => {
   const token = localStorage.getItem('token');
 
-  const url = `http://localhost:8000/api/rooms/${roomId}`;
+  const url = `${serverUrl}/api/rooms/${roomId}`;
 
   axios
     .get(url, {
@@ -152,7 +154,7 @@ const getRoomById = (roomId) => {
 const createNewRoom = () => {
   const token = localStorage.getItem('token');
 
-  const url = 'http://localhost:8000/api/rooms';
+  const url = `${serverUrl}/api/rooms`;
 
   axios
     .post(url, JSON.parse(localStorage.getItem('roomSettings')), {
