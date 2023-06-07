@@ -8,9 +8,9 @@ const defaultRoomSettings = {
     planetCount: 10,
     width: 12,
     height: 5,
-    minPlanetProduction: 30,
-    maxPlanetProduction: 100,
-    speed: 0.5,
+    minPlanetProduction: 90,
+    maxPlanetProduction: 300,
+    speed: 0.35,
     distanceOffset: 0.3,
   },
 };
